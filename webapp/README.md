@@ -70,3 +70,30 @@ $ curl http://localhost:3000/
         </html>
 ```
 
+## Building the container image
+
+```bash
+$ docker build -t webapp:v0 .
+```
+
+### Testing the container image
+
+```bash
+$ docker run --name mywebapp --rm -p 3000:3000 -e WEBAPP_STRING='Hello world !!'  webapp:v0
+Server running on port 3000
+```
+
+```bash
+$ curl http://localhost:3000/
+
+        <html>
+            <head>
+                <title>Environment Variable and Server Hostname</title>
+            </head>
+            <body>
+                <p>WEBAPP_STRING Environment Variable: Hello world !!</p>
+                <p>Server Hostname: aa44cd3a60de</p>
+            </body>
+        </html>
+
+```
