@@ -1,0 +1,10 @@
+{
+  "name": "simple_webapp",
+  "version": "1.0.0",
+  "description": "Simple webapp",
+  "main": "index.js",
+  "author": "Rafael Rios Saavedra",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
