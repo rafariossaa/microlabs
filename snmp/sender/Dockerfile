@@ -1,11 +1,15 @@
 FROM debian:13
 
-# Force rebuild by using a build arg (we will pass a random number)
 ARG CACHEBUST=1
 
-RUN apt-get update && \
-    apt-get install -y snmpd snmp && \
-    rm -rf /var/lib/apt/lists/*
+# 1. Prevent services from auto-starting during apt-get install
+# 2. Install snmpd, snmp tools, and procps (for pkill)
+RUN echo 'exit 101' > /usr/sbin/policy-rc.d && \
+    chmod +x /usr/sbin/policy-rc.d && \
+    apt-get update && \
+    apt-get install -y snmpd snmp procps && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -f /usr/sbin/policy-rc.d
 
 COPY snmpd.conf /etc/snmp/snmpd.conf
 COPY entrypoint.sh /entrypoint.sh
