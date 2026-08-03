@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  sender:
+    build: ./sender
+    container_name: snmp-sender-agent
+    networks:
+      - snmp-net
+
+  receiver:
+    build: ./receiver
+    container_name: snmp-receiver-manager
+    depends_on:
+      - sender
+    ports:
+      # Map host 1162 to container 162 so you can test traps from your host machine
+      - "1162:162/udp"
+    networks:
+      - snmp-net
+
+networks:
+  snmp-net:
+    driver: bridge
