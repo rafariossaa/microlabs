@@ -1,12 +1,10 @@
 FROM debian:13
 
 # Prevent services from auto-starting and install procps
-RUN echo 'exit 101' > /usr/sbin/policy-rc.d && \
-    chmod +x /usr/sbin/policy-rc.d && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y snmptrapd snmp procps && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -f /usr/sbin/policy-rc.d
+    rm -rf /var/lib/apt/lists/*
+
 
 COPY snmptrapd.conf /etc/snmp/snmptrapd.conf
 COPY entrypoint.sh /entrypoint.sh
